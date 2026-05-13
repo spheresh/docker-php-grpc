@@ -1,4 +1,4 @@
-# Docker container with PHP based on Ubuntu-compatible (Debian) image
+# Docker container with PHP based on Debian image
 
 [![Downloads](https://img.shields.io/docker/pulls/spiralscout/php81-grpc.svg)](https://hub.docker.com/repository/docker/spiralscout/php81-grpc)
 
@@ -37,6 +37,6 @@ docker build \
   -t php-grpc:ubuntu .
 ```
 
-Alpine tags can be used as reference examples only and are not part of the supported build path.
+Alpine image tags in examples are reference-only for legacy context and are not supported build targets.
 
 Compatibility builds are validated in CI on `ubuntu-latest`.
