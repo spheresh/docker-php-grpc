@@ -21,11 +21,7 @@ Enabled extensions:
 
 ## Ubuntu compatibility mode
 
-The image build is Ubuntu-compatible only (Debian/Ubuntu package manager path):
-
-- `COMPATIBILITY_MODE=ubuntu` (default)
-- `COMPATIBILITY_MODE=debian`
-- `COMPATIBILITY_MODE=auto` (alias of Debian/Ubuntu path)
+The image build is Ubuntu-compatible only (Debian/Ubuntu package manager path).
 
 Examples:
 
@@ -33,7 +29,6 @@ Examples:
 # Default Ubuntu-compatible build
 docker build \
   --build-arg PHP_IMAGE=8.4-cli \
-  --build-arg COMPATIBILITY_MODE=ubuntu \
   -t php-grpc:ubuntu .
 ```
 

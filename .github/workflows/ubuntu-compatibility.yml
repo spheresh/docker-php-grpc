@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Build on ${{ matrix.runner }} (${{ matrix.mode }})
+    name: Build on ${{ matrix.runner }} (${{ matrix.php_image }})
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -17,7 +17,6 @@ jobs:
         include:
           - runner: ubuntu-latest
             php_image: 8.4-cli
-            mode: ubuntu
 
     steps:
       - uses: actions/checkout@v4
@@ -35,4 +34,3 @@ jobs:
           platforms: linux/amd64,linux/arm64
           build-args: |
             PHP_IMAGE=${{ matrix.php_image }}
-            COMPATIBILITY_MODE=${{ matrix.mode }}

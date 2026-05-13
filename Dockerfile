@@ -7,18 +7,10 @@ ENV TZ="UTC"
 COPY --from=ghcr.io/mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
 
 ARG XDEBUG_ENABLED=false
-ARG COMPATIBILITY_MODE=ubuntu
 ARG PROTOBUF_VERSION="4.29.1"
 ARG GRPC_VERSION="1.68.0"
 
 RUN set -eux; \
-  case "${COMPATIBILITY_MODE}" in \
-    ubuntu|debian|auto) ;; \
-    *) \
-      echo "Unsupported COMPATIBILITY_MODE: ${COMPATIBILITY_MODE}. Use ubuntu or debian." >&2; \
-      exit 1; \
-      ;; \
-  esac; \
   apt-get update; \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     bash \
