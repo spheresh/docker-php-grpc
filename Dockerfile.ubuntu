@@ -22,6 +22,8 @@ RUN apt-get update \
       php-pear \
       build-essential \
       autoconf \
+      zlib1g-dev \
+      libssl-dev \
     && pecl install grpc-${GRPC_VERSION} \
     && pecl install protobuf-${PROTOBUF_VERSION} \
     && PHP_EXT_DIR=$(php${PHP_VERSION} -r "echo ini_get('extension_dir');") \
@@ -30,6 +32,6 @@ RUN apt-get update \
     && cp "${PHP_EXT_DIR}/protobuf.so" /grpc-extensions/ \
     && printf 'extension=grpc.so\n' > /grpc-extensions/grpc.ini \
     && printf 'extension=protobuf.so\n' > /grpc-extensions/protobuf.ini \
-    && apt-get purge -y php${PHP_VERSION}-dev build-essential autoconf \
+    && apt-get purge -y php${PHP_VERSION}-dev build-essential autoconf zlib1g-dev libssl-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/pear /root/.pearrc
