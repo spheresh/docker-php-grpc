@@ -52,11 +52,11 @@ RUN set -eux; \
       install_alpine_deps \
       ;; \
     ubuntu|debian) \
-      install_debian_deps \
+      install_debian_deps; \
       ;; \
     *) \
       echo "Unsupported COMPATIBILITY_MODE: ${COMPATIBILITY_MODE}" >&2; \
-      exit 1 \
+      exit 1; \
       ;; \
   esac
 
