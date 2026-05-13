@@ -15,12 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: ubuntu-22.04
-            php_image: 8.4-cli-alpine3.21
-            mode: auto
-          - runner: ubuntu-24.04
-            php_image: 8.4-cli-alpine3.21
-            mode: auto
           - runner: ubuntu-latest
             php_image: 8.4-cli
             mode: ubuntu
@@ -38,7 +32,7 @@ jobs:
           file: ./Dockerfile
           push: false
           load: false
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           build-args: |
             PHP_IMAGE=${{ matrix.php_image }}
             COMPATIBILITY_MODE=${{ matrix.mode }}

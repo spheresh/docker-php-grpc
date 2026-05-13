@@ -1,4 +1,4 @@
-# Docker container with PHP based on alpine image
+# Docker container with PHP based on Ubuntu-compatible (Debian) image
 
 [![Downloads](https://img.shields.io/docker/pulls/spiralscout/php81-grpc.svg)](https://hub.docker.com/repository/docker/spiralscout/php81-grpc)
 
@@ -21,23 +21,22 @@ Enabled extensions:
 
 ## Ubuntu compatibility mode
 
-The image now supports a compatibility mode toggle for Alpine and Debian/Ubuntu-style package managers:
+The image build is Ubuntu-compatible only (Debian/Ubuntu package manager path):
 
-- `COMPATIBILITY_MODE=auto` (default): detect package manager automatically.
-- `COMPATIBILITY_MODE=alpine`: force Alpine package installation.
-- `COMPATIBILITY_MODE=ubuntu` (or `debian`): force Debian/Ubuntu package installation.
+- `COMPATIBILITY_MODE=ubuntu` (default)
+- `COMPATIBILITY_MODE=debian`
+- `COMPATIBILITY_MODE=auto` (alias of Debian/Ubuntu path)
 
 Examples:
 
 ```bash
-# Default (Alpine PHP image)
-docker build -t php-grpc:alpine .
-
-# Ubuntu-compatible mode (Debian/Ubuntu package manager path)
+# Default Ubuntu-compatible build
 docker build \
   --build-arg PHP_IMAGE=8.4-cli \
   --build-arg COMPATIBILITY_MODE=ubuntu \
-  -t php-grpc:ubuntu-compatible .
+  -t php-grpc:ubuntu .
 ```
 
-Compatibility builds are validated in CI on `ubuntu-22.04`, `ubuntu-24.04`, and `ubuntu-latest`.
+Alpine tags can be used as reference examples only and are not part of the supported build path.
+
+Compatibility builds are validated in CI on `ubuntu-latest`.
