@@ -18,3 +18,26 @@ Enabled extensions:
 - sockets
 - protobuf
 - grpc
+
+## Ubuntu compatibility mode
+
+The image now supports a compatibility mode toggle for Alpine and Debian/Ubuntu-style package managers:
+
+- `COMPATIBILITY_MODE=auto` (default): detect package manager automatically.
+- `COMPATIBILITY_MODE=alpine`: force Alpine package installation.
+- `COMPATIBILITY_MODE=ubuntu` (or `debian`): force Debian/Ubuntu package installation.
+
+Examples:
+
+```bash
+# Default (Alpine PHP image)
+docker build -t php-grpc:alpine .
+
+# Ubuntu-compatible mode (Debian/Ubuntu package manager path)
+docker build \
+  --build-arg PHP_IMAGE=8.4-cli \
+  --build-arg COMPATIBILITY_MODE=ubuntu \
+  -t php-grpc:ubuntu-compatible .
+```
+
+Compatibility builds are validated in CI on `ubuntu-22.04`, `ubuntu-24.04`, and `ubuntu-latest`.
