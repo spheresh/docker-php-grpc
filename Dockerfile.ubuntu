@@ -1,0 +1,37 @@
+ARG UBUNTU_VERSION=22.04
+ARG PHP_VERSION=8.4
+
+FROM ubuntu:${UBUNTU_VERSION}
+
+ARG PHP_VERSION
+ARG PROTOBUF_VERSION="4.29.1"
+ARG GRPC_VERSION="1.68.0"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      ca-certificates \
+      gnupg \
+      software-properties-common \
+    && add-apt-repository ppa:ondrej/php \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+      php${PHP_VERSION}-cli \
+      php${PHP_VERSION}-dev \
+      php-pear \
+      build-essential \
+      autoconf \
+      zlib1g-dev \
+      libssl-dev \
+    && pecl install grpc-${GRPC_VERSION} \
+    && pecl install protobuf-${PROTOBUF_VERSION} \
+    && PHP_EXT_DIR=$(php${PHP_VERSION} -r "echo ini_get('extension_dir');") \
+    && mkdir -p /grpc-extensions \
+    && cp "${PHP_EXT_DIR}/grpc.so" /grpc-extensions/ \
+    && cp "${PHP_EXT_DIR}/protobuf.so" /grpc-extensions/ \
+    && printf 'extension=grpc.so\n' > /grpc-extensions/grpc.ini \
+    && printf 'extension=protobuf.so\n' > /grpc-extensions/protobuf.ini \
+    && apt-get purge -y php${PHP_VERSION}-dev build-essential autoconf zlib1g-dev libssl-dev \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/pear /root/.pearrc
