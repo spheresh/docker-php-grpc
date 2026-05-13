@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./
-          file: ./Dockerfile.docksal
+          file: ./Dockerfile.ubuntu
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
